@@ -1,4 +1,21 @@
 #!/usr/bin/env bash
+#
+#    check_suspicious_connection.bash
+#    Copyright (C) 2022  Giuseppe Marco Randazzo <gmrandazzo@gmail.com>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
 
 ip_excluded()
 {
@@ -55,8 +72,13 @@ check_suspicious_connections()
                 c=`grep ${subnet} /tmp/delegated-ripencc-latest.txt`
                 if [ "${#a}" -gt 0 ] | [ "${#b}" -gt 0 ] | [ "${#c}" -gt 0 ]; then
                     echo "Compromised IP >>" ${i}
-                    #OSX
+                    #OSX 10.9 and earlier
                     #sudo ipfw add deny src-ip ${i}; ipfw add deny dst-ip ${i}
+                    
+                    #OSX 10.10 and above
+                    #sudo echo "block drop from any to ${i}" >> /etc/pf.conf
+                    #sudo pfctl -f /etc/pf.conf
+                    
                     #Linux
                     su -c "/usr/sbin/ufw deny from ${i} to any"
 		    # su -c "/usr/sbin/iptables -I INPUT -s ${i} -j DROP"
