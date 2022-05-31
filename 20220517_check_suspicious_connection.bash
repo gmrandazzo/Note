@@ -61,7 +61,7 @@ check_suspicious_connections()
     # OSX
     #for i in `netstat -na | egrep 'LISTEN|ESTABLISH' | egrep tcp4 | awk '{print $5}' | cut -d "."  -f "1,2,3,4"`
     #Linux
-    for i in `netstat --inet -pan | egrep 'LISTEN|ESTABLISH' | awk '{print $5}' | cut -d ":"  -f "1"`    
+    for i in `su -c "netstat --inet -pan" | egrep 'LISTEN|ESTABLISH' | awk '{print $5}' | cut -d ":"  -f "1"`
     	do
 		if [ $(ip_excluded ${i}) = "true" ]; then
                 continue
