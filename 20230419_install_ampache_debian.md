@@ -23,6 +23,14 @@ cd ampache
 composer install
 sudo mysql_secure_installation
 
+
+systemctl edit mariadb.service
+
+[Service]
+MemoryMax=1024M
+MemorySwapMax=128M
+
+systemctl restart mariadb.service
 systemctl restart apache2.service
 
 Then follow the instruction here: https://github.com/ampache/ampache/wiki/Installation
