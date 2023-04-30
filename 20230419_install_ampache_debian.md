@@ -12,8 +12,7 @@ sudo mv composer.phar /usr/local/bin/composer
 sudo chmod +x /usr/local/bin/composer
 sudo chown -R www-data:www-data /var/www/
 
-sudo vim /etc/php/7.4/apache2/php.ini and change post_max_size = 100M and upload_max_filesize = 100M
-
+sudo vim /etc/php/7.4/apache2/php.ini and change post_max_size = 100M and upload_max_filesize = 100M and memory_limit = 3G
 sudo su - www-data -s /bin/bash
 git clone -b release5 https://github.com/ampache/ampache.git ampache
 rm -rf /var/www/html
